@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<head>
+  <title>TODO APP basic html</title>
+</head>
+<script>
+  function onPress() {
+    var t = document.getElementById("title1").value;
+    var d = document.getElementById("description1").value;
+
+    function parsedResponse(data) {
+      console.log(data);
+    }
+    function callbk(resp) {
+      resp.json().then(parsedResponse);
+    }
+
+    fetch("http://localhost:3005/todos ", {
+      method: "POST",
+      body: JSON.stringify({
+        title: t,
+        description: d,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(callbk);
+  }
+</script>
+<body>
+  Todo Title
+  <input type="Text" id="title1" />
+  Todo Description:"goto gym"
+  <input type="Text" id="description1" />
+  <button onclick=" onPress() ">Send Todo</button>
+</body>
