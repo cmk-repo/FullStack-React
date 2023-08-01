@@ -1,4 +1,4 @@
-# FullStack-React
+# Files i came across while learing FullStack-React
 
 Learning git and moving all files from other classes to here for reference 
 --
