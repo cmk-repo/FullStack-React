@@ -2,14 +2,20 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const app = express();
+require("dotenv").config();
+
+const dbConfig = {
+  apiKey: `${process.env.DB_KEY}`,
+  SECRET: `${process.env.DB_SECRET}`
+}
 
 app.use(express.json());
 
-const SECRET = 'SECr3t';  // This should be in an environment variable in a real application
+//const SECRET = 'SECr3t';  // This should be in an environment variable in a real application
 
 // Define mongoose schemas
 const userSchema = new mongoose.Schema({
-  username: {type: String},
+  username: { type: String },
   password: String,
   purchasedCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }]
 });
@@ -36,7 +42,7 @@ const authenticateJwt = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (authHeader) {
     const token = authHeader.split(' ')[1];
-    jwt.verify(token, SECRET, (err, user) => {
+    jwt.verify(token, dbConfig.SECRET, (err, user) => {
       if (err) {
         return res.sendStatus(403);
       }
@@ -49,8 +55,8 @@ const authenticateJwt = (req, res, next) => {
 };
 
 // Connect to MongoDB
-// DONT MISUSE THIS THANKYOU!!
-mongoose.connect('mongodb+srv://kirattechnologies:iRbi4XRDdM7JMMkl@cluster0.e95bnsi.mongodb.net/courses', { useNewUrlParser: true, useUnifiedTopology: true, dbName: "courses" });
+// configure the environment file properly
+mongoose.connect(dbConfig.apiKey, { useNewUrlParser: true, useUnifiedTopology: true, dbName: "courses" });
 
 app.post('/admin/signup', (req, res) => {
   const { username, password } = req.body;
@@ -61,7 +67,7 @@ app.post('/admin/signup', (req, res) => {
       const obj = { username: username, password: password };
       const newAdmin = new Admin(obj);
       newAdmin.save();
-      const token = jwt.sign({ username, role: 'admin' }, SECRET, { expiresIn: '1h' });
+      const token = jwt.sign({ username, role: 'admin' }, dbConfig.SECRET, { expiresIn: '1h' });
       res.json({ message: 'Admin created successfully', token });
     }
 
@@ -73,7 +79,7 @@ app.post('/admin/login', async (req, res) => {
   const { username, password } = req.headers;
   const admin = await Admin.findOne({ username, password });
   if (admin) {
-    const token = jwt.sign({ username, role: 'admin' }, SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ username, role: 'admin' }, dbConfig.SECRET, { expiresIn: '1h' });
     res.json({ message: 'Logged in successfully', token });
   } else {
     res.status(403).json({ message: 'Invalid username or password' });
@@ -109,7 +115,7 @@ app.post('/users/signup', async (req, res) => {
   } else {
     const newUser = new User({ username, password });
     await newUser.save();
-    const token = jwt.sign({ username, role: 'user' }, SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ username, role: 'user' }, dbConfig.SECRET, { expiresIn: '1h' });
     res.json({ message: 'User created successfully', token });
   }
 });
@@ -118,7 +124,7 @@ app.post('/users/login', async (req, res) => {
   const { username, password } = req.headers;
   const user = await User.findOne({ username, password });
   if (user) {
-    const token = jwt.sign({ username, role: 'user' }, SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ username, role: 'user' }, dbConfig.SECRET, { expiresIn: '1h' });
     res.json({ message: 'Logged in successfully', token });
   } else {
     res.status(403).json({ message: 'Invalid username or password' });
@@ -126,7 +132,7 @@ app.post('/users/login', async (req, res) => {
 });
 
 app.get('/users/courses', authenticateJwt, async (req, res) => {
-  const courses = await Course.find({published: true});
+  const courses = await Course.find({ published: true });
   res.json({ courses });
 });
 
