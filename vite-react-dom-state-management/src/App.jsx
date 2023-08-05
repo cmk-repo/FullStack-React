@@ -49,11 +49,14 @@ setInterval(()=>{
 
   return (
     <>
+    <div>
     <h1> Hi There </h1>
     {todo.title}
     {todo.description}
     {todo.id}
+    <TestComponent></TestComponent>
     <PersonName firstName={todo.title} lastName = {todo.description}> </PersonName>
+    </div>
     </>
   )
 }
@@ -65,7 +68,16 @@ function PersonName(props){
     </div>
 }
 
+// the name of component should be in PASCAL type declaration 
+// Mean Capital first letterss
+function TestComponent(){
+return <div>
+    Chandan M
+  </div>
+}
 
+// npm run build to build the dist folder
+ß
 export default App
 
 
