@@ -1,1 +1,3 @@
-hello from a.txt
+Hello i am in files folder a.txt
+for week 4.2 React effects and custome hooks
+use todo server solution.js not fileserver
