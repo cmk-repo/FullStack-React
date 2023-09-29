@@ -1,3 +1,6 @@
+// in this file we create a virtul dom like array variable 
+
+
 let vDOM = []; // Our initial vDOM is an empty array
 
 function createDomElements(existingDOM, currentDOM) {
@@ -6,10 +9,10 @@ function createDomElements(existingDOM, currentDOM) {
   let added = 0, deleted = 0, updated = 0;
 
   // Now, we'll compare our new vDOM to our old vDOM
-  currentDOM.forEach(function(item) {
+  currentDOM.forEach(function (item) {
     // Check if an element with this ID already exists in the old vDOM
-    var existingItem = existingDOM.find(function(oldItem) {
-      return oldItem.id === item.id;
+    var existingItem = existingDOM.find(function (oldItem) {
+      return oldItem.id === item.id; // returns true or false  with this we can decide to push new element or not push new elements 
     });
 
     if (existingItem) {
@@ -18,7 +21,7 @@ function createDomElements(existingDOM, currentDOM) {
       var existingChild = document.querySelector(`[data-id='${item.id}']`);
       existingChild.children[0].innerHTML = item.title;
       existingChild.children[1].innerHTML = item.description;
-    } else {
+    } else { // if not exist this is same standard code 
       added++;
       // If it doesn't exist in the DOM, create it
       var childElement = document.createElement("div");
@@ -42,7 +45,7 @@ function createDomElements(existingDOM, currentDOM) {
   });
 
   // Any item left in the existingDOM array no longer exist in the data, so remove them
-  existingDOM.forEach(function(oldItem) {
+  existingDOM.forEach(function (oldItem) {
     if (!currentDOM.some(item => item.id === oldItem.id)) {
       deleted++;
       var childToRemove = document.querySelector(`[data-id='${oldItem.id}']`);
@@ -57,6 +60,12 @@ function createDomElements(existingDOM, currentDOM) {
 
 function updateVirtualDom(data) {
   let existingDOM = [...vDOM]; // Save the existing state of vDOM
+  // let existingDOM = []; pushing one by one creating a variable existingDOM
+  // for(let i= 0 ; i< vDOM; i ++ ){
+  // existingDOM.push(vDOM[i]);
+  //}
+  //
+  //
   vDOM = data.map(item => {
     return {
       id: item.id,
@@ -69,11 +78,11 @@ function updateVirtualDom(data) {
 
 window.setInterval(() => {
   let todos = [];
-  for (let i = 0; i<Math.floor(Math.random() * 100); i++) {
+  for (let i = 0; i < Math.floor(Math.random() * 100); i++) {
     todos.push({
       title: "Go to gym",
       description: "Go to gym from 5",
-      id: i+1
+      id: i + 1
     })
   }
 
