@@ -9,7 +9,7 @@ function useChandanTodoHook() {
 
   console.log("render")
   React.useEffect(()=>{ // hook2
-    fetch("http://localhost:3001/todos",{ method:"get"
+    fetch("http://localhost:3000/todos",{ method:"get"
   }).then((response)=>{
     response.json().then((data)=>{
       console.log(data);
@@ -18,14 +18,14 @@ function useChandanTodoHook() {
   });
       // make it fetch everyone sec by adding interval 
     setInterval(() => {
-      fetch("http://localhost:3001/todos",{ method:"get"
+      fetch("http://localhost:3000/todos",{ method:"get"
     }).then((response)=>{
     response.json().then((data)=>{
       console.log(data);
       setTodoForToday(data); // this line now add all the files
     })
   });
-    })
+    },1000)
   }, []);
   return TodoState;
 

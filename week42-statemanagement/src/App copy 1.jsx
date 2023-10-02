@@ -77,7 +77,6 @@ return <div>
 }
 
 // npm run build to build the dist folder
-ß
 export default App
 
 
