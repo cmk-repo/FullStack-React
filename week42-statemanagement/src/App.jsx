@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 
+// server using node todoServer.solution from week 2
 
 // Custom hook
   // use todo to write all these logic
@@ -25,7 +26,7 @@ function useChandanTodoHook() {
       setTodoForToday(data); // this line now add all the files
     })
   });
-    },1000)
+    },1000) // poling every one second
   }, []);
   return TodoState;
 
