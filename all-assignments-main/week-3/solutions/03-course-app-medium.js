@@ -2,8 +2,11 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const app = express();
+const cors = require("cors");
 
+app.use(cors());
 app.use(express.json());
+
 
 let ADMINS = [];
 let USERS = [];
@@ -11,13 +14,13 @@ let COURSES = [];
 
 // Read data from file, or initialize to empty array if file does not exist
 try {
-    ADMINS = JSON.parse(fs.readFileSync('admins.json', 'utf8'));
-    USERS = JSON.parse(fs.readFileSync('users.json', 'utf8'));
-    COURSES = JSON.parse(fs.readFileSync('courses.json', 'utf8'));
+  ADMINS = JSON.parse(fs.readFileSync('admins.json', 'utf8'));
+  USERS = JSON.parse(fs.readFileSync('users.json', 'utf8'));
+  COURSES = JSON.parse(fs.readFileSync('courses.json', 'utf8'));
 } catch {
-    ADMINS = [];
-    USERS = [];
-    COURSES = [];
+  ADMINS = [];
+  USERS = [];
+  COURSES = [];
 }
 console.log(ADMINS);
 
@@ -42,6 +45,7 @@ const authenticateJwt = (req, res, next) => {
 // Admin routes
 app.post('/admin/signup', (req, res) => {
   const { username, password } = req.body;
+  console.log(req.body)
   const admin = ADMINS.find(a => a.username === username);
   console.log("admin signup");
   if (admin) {
