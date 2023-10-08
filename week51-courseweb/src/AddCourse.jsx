@@ -15,14 +15,14 @@ function AddCourse() {
         style={{ marginTop: 0, width: 400, padding: 20 }}
       >
         <TextField
-          onChange={(e) => {
-            setTitle(e.target.value);
+          onChange={(event) => {
+            setTitle(event.target.value);
           }}
           fullWidth={true}
           label="Title"
           variant="outlined"
         />
-
+        <br />
         <TextField
           onChange={(e) => {
             setDescription(e.target.value);
@@ -31,9 +31,11 @@ function AddCourse() {
           label="Description"
           variant="outlined"
         />
+        <br />
+        <br />
         <Button
           size={"large"}
-          variant="outlined"
+          variant="contained"
           onClick={() => {
             fetch("http://localhost:3000/admin/courses", {
               method: "POST",

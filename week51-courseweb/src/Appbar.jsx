@@ -1,7 +1,9 @@
 import { Button, Typography, filledInputClasses } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 // import { useHistory } from "react-router-dom";
 function Appbar() {
-  // const history = useHistory();
+  // const history = useHistory(); // discarded
+  const navigate = useNavigate();
   return (
     <div
       style={{
@@ -19,8 +21,9 @@ function Appbar() {
           <Button
             variant={"contained"}
             onClick={() => {
-              window.location = "/signup"; // it is reloading the whole page
+              //window.location = "/signup"; // it is reloading the whole page
               // history.push("/signup");
+              navigate("/signup");
             }}
           >
             Sign up
@@ -30,8 +33,9 @@ function Appbar() {
           <Button
             variant={"contained"}
             onClick={() => {
-              window.location = "/login";
+              // window.location = "/login";
               // history.push("/login");
+              navigate("/login");
             }}
           >
             Sign in
