@@ -41,6 +41,14 @@ const authenticateJwt = (req, res, next) => {
     res.sendStatus(401);
   }
 };
+// new route added on oct 8th for course app
+
+app.get("/admin/me", authenticateJwt, (req, res) => {
+  res.json({
+    username: req.user.username
+  })
+})
+
 
 // Admin routes
 app.post('/admin/signup', (req, res) => {

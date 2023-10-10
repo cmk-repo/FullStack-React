@@ -1,9 +1,26 @@
 import { Button, Typography, filledInputClasses } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import { useHistory } from "react-router-dom";
+
 function Appbar() {
   // const history = useHistory(); // discarded
   const navigate = useNavigate();
+  const [userEmail, setUserEmail] = useState(null);
+  useEffect(() => {
+    fetch("http://localhost:3000/admin/me", {
+      method: "GET",
+      headers: { "Authorization": "Bearer " + localStorage.getItem("randomkey") }
+    }).then((res) => {
+      return res.json();
+    })
+      .then((data) => {
+        console.log(data)
+        if (data.username) {
+          setUserEmail(data.username)
+        }
+      });
+  }, []);
   return (
     <div
       style={{

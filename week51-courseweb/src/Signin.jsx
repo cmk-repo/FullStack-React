@@ -26,7 +26,7 @@ function Signin() {
             marginTop: 0,
             width: 400,
             padding: 20,
-            backgroundColor: "#F8F5F1 ",
+            // backgroundColor: "#F8F5F1 ",
           }}
         >
           <TextField
@@ -35,7 +35,7 @@ function Signin() {
             label="Email"
             variant="outlined"
             backgroundColor="#FDE5D4"
-            // onChange={setEmail(e.target.value)}
+          // onChange={setEmail(e.target.value)}
           />
           <br />
           <br />
@@ -45,7 +45,7 @@ function Signin() {
             label="Password"
             variant="outlined"
             backgroundColor="#FDE5D4"
-            // onChange={setPassword(e.target.value)}
+          // onChange={setPassword(e.target.value)}
           />
           <br />
           <br />
