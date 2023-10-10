@@ -83,7 +83,8 @@ function Signup() {
                 })
                 .then((data) => {
                   localStorage.setItem("randomkey", data.token);
-                  console.log(data);
+                  // console.log(data);
+                  window.location = "/" // force refresh to pick new token
                 });
             }}
           >

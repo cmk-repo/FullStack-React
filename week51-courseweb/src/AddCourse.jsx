@@ -6,6 +6,7 @@ import { useState } from "react";
 function AddCourse() {
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
+  const [image, setImage] = useState();
 
   return (
     // <div>
@@ -32,6 +33,14 @@ function AddCourse() {
           variant="outlined"
         />
         <br />
+        <TextField
+          onChange={(e) => {
+            setImage(e.target.value);
+          }}
+          fullWidth={true}
+          label="Image Link"
+          variant="outlined"
+        />
         <br />
         <Button
           size={"large"}
@@ -42,7 +51,7 @@ function AddCourse() {
               body: JSON.stringify({
                 title: title, // have to send what server wants so name it right
                 description: description,
-                imageLink: "",
+                imageLink: image,
                 published: true,
               }),
 
