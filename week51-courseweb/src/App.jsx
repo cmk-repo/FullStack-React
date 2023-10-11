@@ -5,6 +5,9 @@ import Appbar from "./Appbar.jsx";
 import AddCourse from "./AddCourse.jsx";
 import Courses from "./courses.jsx";
 import Course from "./Course.jsx";
+import React from 'react';
+import {  RecoilRoot } from 'recoil';
+
 
 function App() {
   return (
@@ -15,6 +18,7 @@ function App() {
         backgroundColor: "#F1F0E8",
       }}
     >
+    <RecoilRoot>
       <Router>
         <Appbar />
         <Routes>
@@ -25,6 +29,7 @@ function App() {
           <Route path="/course/:courseId" element={<Course />} />
         </Routes>
       </Router>
+      </RecoilRoot>
     </div>
   );
 }

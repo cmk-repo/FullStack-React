@@ -3,24 +3,12 @@ import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import { Typography } from "@mui/material";
 import { useState,useEffect } from "react";
-import React from 'react';
-import {
-  RecoilRoot,
-  atom,
-  selector,
-  useRecoilState,
-  useRecoilValue,
-  useSetRecoilState,
-} from 'recoil';
 
-// 2. october 10th to reduce the expensive operation reduce re rendering 
-// because the course is in top levelk component 
-// using state management libraries  redux recoil, zustand
+// october 10th, In this current code this will update 3 times 
+
 
 function Courses() {
-    const [courses,setCourses] = useState([]); // replacing in line 23. trying to remove conneciton to Courses 
-    //const [courses,setCourses] = useRecoilState(coursesState); // this will still re-render the whole thing 
-   // const setCouses = useSetRecoilState(coursesState)
+    const [courses,setCourses] = useState([]);
 
     useEffect(() => { // stop multiple requsts sending
         fetch("http://localhost:3000/admin/courses", {
@@ -62,8 +50,3 @@ export function Fn_map(props){
     )
 }
   export default Courses;
-
-  // const coursesState = atom({
-  //   key: 'coursesState', // unique ID (with respect to other atoms/selectors)
-  //   default: '', // default value (aka initial value) 
-  // });
