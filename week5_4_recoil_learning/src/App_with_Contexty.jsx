@@ -1,12 +1,17 @@
 import { createContext, useContext, useState } from 'react'
 import './App.css'
 import { Button, Card, Typography } from '@mui/material';
-import { useRecoilValue, useSetRecoilState, RecoilRoot, atom } from 'recoil'
+
+// context will reduce prop drilling but does not stop rerendering
+
+const CountContext = createContext();
 
 function App() {
+  const [count, setCount] = useState(0)
+
   return (
 
-    <RecoilRoot>
+    <CountContext.Provider value={{ count: count, setCount: setCount }}>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <Card style={{ padding: 20, width: 500 }}>
           <Typography variant="h5"> welcome to counter </Typography>
@@ -15,7 +20,7 @@ function App() {
           <CountComponent />
         </Card>
       </div>
-    </RecoilRoot>
+    </CountContext.Provider>
 
   )
 }
@@ -30,27 +35,27 @@ function Buts() {
 }
 
 function Increase() {
-  const setCount = useSetRecoilState(countState)
+  const { count, setCount } = useContext(CountContext);
   return <div>
     <Button variant="contained" onClick={() => {
-      setCount(existingCount => existingCount + 1)
+      setCount(count + 1)
     }}> Increase count </Button>
   </div>
 
 }
 
 function Decrease() {
-  const setCount = useSetRecoilState(countState)
+  const { count, setCount } = useContext(CountContext);
   return <div>
     <Button variant={"contained"} onClick={() => {
-      setCount(existingCount => existingCount - 1)
+      setCount(count - 1)
     }}> Decrease count </Button>
   </div>
 
 }
 
 function CountComponent() {
-  const count = useRecoilValue(countState)
+  const { count } = useContext(CountContext);
   return <div>
     <Typography variant='h5' textAlign={"center"}> {count}</Typography>
   </div>
@@ -58,9 +63,3 @@ function CountComponent() {
 }
 
 export default App
-
-
-const countState = atom({
-  key: 'countState',
-  default: 0, // default value arguement to use state similar
-})
