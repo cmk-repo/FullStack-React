@@ -1,3 +1,6 @@
 [submodule "Week-5-with-axios-and-backend"]
 	path = Week-5-with-axios-and-backend
 	url = https://github.com/cmk-repo/Week-5-with-axios-and-backend.git
+[submodule "week-7"]
+	path = week-7
+	url = https://github.com/cmk-repo/week-7.git
